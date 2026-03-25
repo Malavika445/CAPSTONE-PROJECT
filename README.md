@@ -1,8 +1,10 @@
  LearnHub Booking System
 
  Project Overview
+ 
+ LearnHub is a web-based educational platform designed to help users explore subjects, select courses, and manage their learning process efficiently. The system allows users to register, browse available subjects, choose teachers based on their preferred subject, and book sessions according to required hours.
+Users can add selected courses or sessions to a cart, proceed with booking, and complete the payment process in a structured manner. The platform provides a simple and user-friendly interface that ensures smooth navigation and easy access to learning resources.Overall, LearnHub aims to deliver a flexible and convenient learning experience where users can customize their learning by selecting teachers and scheduling sessions
 
-LearnHub is a web-based educational platform designed to help users explore subjects, select courses, and manage their learning process efficiently. The system allows users to register, browse available subjects, add courses to a cart, and proceed with booking and payment. It provides a structured and user-friendly environment for students to access learning resources and complete transactions smoothly.
 
 Purpose of the Project
 
