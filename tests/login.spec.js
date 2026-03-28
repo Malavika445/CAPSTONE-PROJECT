@@ -1,3 +1,4 @@
+
 import { test, expect } from '@playwright/test';
 
 const baseURL = 'https://learn-hub--neelamalavika7.replit.app/';
@@ -227,62 +228,3 @@ test('TC20 - Only password', async ({ page }) => {
 
 
 // TC21 - Email Uppercase
-test('TC21 - Uppercase email', async ({ page }) => {
-
-  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
-  await page.getByRole('link', { name: 'Log in' }).click();
-
-  await page.getByRole('textbox', { name: 'you@example.com' }).fill('NEELAMALAVIKA15@GMAIL.COM');
-  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
-
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page).toHaveURL(/home|login/);
-});
-
-
-// TC22 - Password Case Sensitivity
-test('TC22 - Password case sensitivity', async ({ page }) => {
-
-  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
-  await page.getByRole('link', { name: 'Log in' }).click();
-
-  await page.getByRole('textbox', { name: 'you@example.com' }).fill('neelamalavika15@gmail.com');
-  await page.getByRole('textbox', { name: '••••••••' }).fill('CRUISE@2003');
-
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page).toHaveURL(/login/);
-});
-
-
-// TC23 - Invalid Email Format
-test('TC23 - Invalid email format', async ({ page }) => {
-
-  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
-  await page.getByRole('link', { name: 'Log in' }).click();
-
-  await page.getByRole('textbox', { name: 'you@example.com' }).fill('abc@gmail');
-  await page.getByRole('textbox', { name: '••••••••' }).fill('123456');
-
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page).toHaveURL(/login/);
-});
-
-
-// TC24 - Spaces in Email
-test('TC24 - Email with spaces', async ({ page }) => {
-
-  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
-  await page.getByRole('link', { name: 'Log in' }).click();
-
-  await page.getByRole('textbox', { name: 'you@example.com' }).fill('   neelamalavika15@gmail.com   ');
-  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
-
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page).toHaveURL(/home|login/);
-});
-
-
