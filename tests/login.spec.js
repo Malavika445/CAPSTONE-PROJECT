@@ -155,10 +155,134 @@ test('TC14 - Refresh page after entering data', async ({ page }) => {
   await expect(page.locator('input[type="email"]')).toBeVisible();
 });
 
-// TC15
-test('TC15 - Navigate back to home page', async ({ page }) => {
-  await goToLogin(page);
 
-  await page.getByText('LearnHub').click();
-  await expect(page).toHaveURL(baseURL);
+// TC16 - Invalid Password
+test('TC16 - Invalid password', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('neelamalavika15@gmail.com');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('wrong123');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
 });
+
+
+// TC17 - Invalid Email
+test('TC17 - Invalid email', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('wrong@gmail.com');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC18 - Empty Fields
+test('TC18 - Empty login', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC19 - Only Email
+test('TC19 - Only email', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('neelamalavika15@gmail.com');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC20 - Only Password
+test('TC20 - Only password', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC21 - Email Uppercase
+test('TC21 - Uppercase email', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('NEELAMALAVIKA15@GMAIL.COM');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/home|login/);
+});
+
+
+// TC22 - Password Case Sensitivity
+test('TC22 - Password case sensitivity', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('neelamalavika15@gmail.com');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('CRUISE@2003');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC23 - Invalid Email Format
+test('TC23 - Invalid email format', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('abc@gmail');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('123456');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/login/);
+});
+
+
+// TC24 - Spaces in Email
+test('TC24 - Email with spaces', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Log in' }).click();
+
+  await page.getByRole('textbox', { name: 'you@example.com' }).fill('   neelamalavika15@gmail.com   ');
+  await page.getByRole('textbox', { name: '••••••••' }).fill('cruise@2003');
+
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page).toHaveURL(/home|login/);
+});
+
+

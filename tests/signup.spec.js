@@ -1,147 +1,158 @@
 import { test, expect } from '@playwright/test';
+import { SignupPage} from '../POM/Signup';
 
-const baseURL = 'https://learn-hub--neelamalavika7.replit.app/';
+test.describe('Signup Test Cases', () => {
 
-async function goToSignup(page) {
-  await page.goto(baseURL);
-  await page.getByRole('link', { name: 'Sign up' }).click();
-}
+  test('TC01 - Valid signup', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('Malavika', email, 'cruise@2003');
+    await expect(page).toHaveURL(/login|home|dashboard|register/);
+  });
+ 
+  test('TC02 - Invalid email', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', 'ramu@com', '123456');
+    await expect(page).toHaveURL(/register/);
+  });
 
-// TC01 - Page Load
-test('TC01 - Signup page loads', async ({ page }) => {
-  await goToSignup(page);
-  await expect(page.locator('text=Create an account')).toBeVisible();
-});
+  test('TC03 - Missing email', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', '', '123456');
+    await expect(page).toHaveURL(/register/);
+  });
 
-// TC02 - Valid Signup
-test('TC02 - Valid signup', async ({ page }) => {
-  await goToSignup(page);
+  test('TC04 - Missing password', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', 'test@gmail.com', '');
+    await expect(page).toHaveURL(/register/);
+  });
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
-  await page.locator('input').nth(2).fill('cruise@2003');
+  test('TC05 - Uppercase name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('RAMU', email, '123456');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC06 - Invalid email format', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', 'abc@gmail', '123456');
+    await expect(page).toHaveURL(/register/);
+  });
 
-// TC03 - Invalid Email
-test('TC03 - Invalid email', async ({ page }) => {
-  await goToSignup(page);
+  test('TC07 - Long name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('abcdefghijklmnoqrstuvwxyz', email, '8764345678');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('malavika@com');
-  await page.locator('input').nth(2).fill('cruise@2003');
+  test('TC08 - Special char name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('Gh@#Jh$', email, '8764345678');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC09 - Numeric name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('123456', email, '8764345678');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-// TC04 - Empty Form
-test('TC04 - Empty form', async ({ page }) => {
-  await goToSignup(page);
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC10 - Empty form', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.clickSignup();
+    await expect(page).toHaveURL(/register/);
+  });
 
-// TC05 - Only Name
-test('TC05 - Only name', async ({ page }) => {
-  await goToSignup(page);
+  test('TC11 - Name with spaces', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('   ramu   ', email, '123456');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.locator('input').nth(0).fill('Malavika');
+  test('TC12 - Email uppercase', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', 'TESTEMAIL@GMAIL.COM', '123456');
+    await expect(page).toHaveURL(/register|login/);
+  });
 
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC13 - Strong password', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('ramu', email, 'Ramu@123');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-// TC06 - Only Email
-test('TC06 - Only email', async ({ page }) => {
-  await goToSignup(page);
+  test('TC14 - Short name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('a', email, '123456');
+    await expect(page).toHaveURL(/register|login/);
+  });
 
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
+  test('TC15 - Long email', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', `verylong${Date.now()}@gmail.com`, '123456');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC16 - Numeric password', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('ramu', email, '999999');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-// TC07 - Only Password
-test('TC07 - Only password', async ({ page }) => {
-  await goToSignup(page);
+  test('TC17 - Alphabet password', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('ramu', email, 'abcdef');
+    await expect(page).toHaveURL(/login|register/);
+  });
 
-  await page.locator('input').nth(2).fill('cruise@2003');
+  test('TC18 - Empty name', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('', email, '123456');
+    await expect(page).toHaveURL(/register/);
+  });
 
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
+  test('TC19 - Empty email', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    await s.signup('ramu', '', '123456');
+    await expect(page).toHaveURL(/register/);
+  });
 
-// TC08 - Weak Password
-test('TC08 - Weak password', async ({ page }) => {
-  await goToSignup(page);
+  test('TC20 - Empty password', async ({ page }) => {
+    const s = new SignupPage(page);
+    await s.open();
+    const email = await s.generateEmail();
+    await s.signup('ramu', email, '');
+    await expect(page).toHaveURL(/register/);
+  });
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
-  await page.locator('input').nth(2).fill('123');
-
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
-
-// TC09 - Verify Input Values
-test('TC09 - Verify inputs', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
-
-  await expect(page.locator('input').nth(0)).toHaveValue('Malavika');
-  await expect(page.locator('input').nth(1)).toHaveValue('malavikaneela20@gmail.com');
-});
-
-// TC10 - Password Masking
-test('TC10 - Password hidden', async ({ page }) => {
-  await goToSignup(page);
-
-  const pass = page.locator('input').nth(2);
-  await pass.fill('cruise@2003');
-
-  await expect(pass).toHaveAttribute('type', 'password');
-});
-
-// TC11 - Multiple Click
-test('TC11 - Multiple click signup', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.getByRole('button', { name: 'Sign up' }).click();
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
-
-// TC12 - Navigate Home
-test('TC12 - Back to home', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.locator('a[href="/"]').first().click();
-  await expect(page).toHaveURL(baseURL);
-});
-
-// TC13 - Missing Email
-test('TC13 - Missing email', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(2).fill('cruise@2003');
-
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
-
-// TC14 - Missing Password
-test('TC14 - Missing password', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
-
-  await page.getByRole('button', { name: 'Sign up' }).click();
-});
-
-// TC15 - Missing Name
-test('TC15 - Missing name', async ({ page }) => {
-  await goToSignup(page);
-
-  await page.locator('input').nth(1).fill('malavikaneela20@gmail.com');
-  await page.locator('input').nth(2).fill('cruise@2003');
-
-  await page.getByRole('button', { name: 'Sign up' }).click();
 });

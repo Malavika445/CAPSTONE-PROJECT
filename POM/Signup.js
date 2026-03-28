@@ -1,30 +1,43 @@
-export class signUpPage {
+export class SignupPage {
   constructor(page) {
     this.page = page;
-    this.nameInput = page.getByRole('textbox', { name: 'John Doe' });
-    this.emailInput = page.getByRole('textbox', { name: 'you@example.com' });
-    this.phoneInput = page.getByRole('textbox', { name: '9876543210' });
-    // Using data-testid as it's a best practice mentioned in Playwright docs
+
+    this.signupLink = page.getByRole('link', { name: 'Sign up' });
+    this.name = page.getByRole('textbox', { name: 'John Doe' });
+    this.email = page.getByRole('textbox', { name: 'you@example.com' });
     this.password = page.getByRole('textbox', { name: '••••••••' });
-    this.submitButton = page.getByRole('button', { name: 'Create Account' });
-  }
-    
-  async navigate() {
-    // Replace with your actual local or hosted URL
-    await this.page.goto('https://vehicle-booking-hub--sushmithaanaidu.replit.app/');
-    await this.page.getByRole('link', { name: 'Sign In' }).click();
-    await this.page.getByRole('link', { name: 'Register here' }).click();
-
+    this.signupBtn = page.getByRole('button', { name: 'Sign up' });
   }
 
-  async fillForm(name, email, phone, password) {
-    await this.nameInput.fill(name);
-    await this.emailInput.fill(email);
-    await this.phoneInput.fill(phone);
-    await this.password.fill(password);
+  async open() {
+    await this.page.goto('https://learn-hub--neelamalavika7.replit.app/');
+    await this.signupLink.click();
   }
 
-  async submit() {
-    await this.submitButton.click();
+  async enterName(value) {
+    if (value !== undefined) await this.name.fill(value);
+  }
+
+  async enterEmail(value) {
+    if (value !== undefined) await this.email.fill(value);
+  }
+
+  async enterPassword(value) {
+    if (value !== undefined) await this.password.fill(value);
+  }
+
+  async clickSignup() {
+    await this.signupBtn.click();
+  }
+
+  async generateEmail() {
+    return `test${Date.now()}@gmail.com`;
+  }
+
+  async signup(name, email, password) {
+    await this.enterName(name);
+    await this.enterEmail(email);
+    await this.enterPassword(password);
+    await this.clickSignup();
   }
 }

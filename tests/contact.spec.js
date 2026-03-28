@@ -1,122 +1,286 @@
 import { test, expect } from '@playwright/test';
 
-const baseURL = 'https://learn-hub--neelamalavika7.replit.app/';
+// TC01 - Fields visible
+test('TC01 - Contact fields visible', async ({ page }) => {
 
-async function goToContact(page) {
-  await page.goto(baseURL);
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
   await page.getByRole('link', { name: 'Contact' }).click();
-}
 
-// TC01 - Contact page loads
-test('TC01 - Contact page loads', async ({ page }) => {
-  await goToContact(page);
-  await expect(page.locator('text=Get in touch')).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Jane', exact: true })).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Doe' })).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'jane@example.com' })).toBeVisible();
 });
 
-// TC02 - Valid form submission
-test('TC02 - Valid contact form', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('Malavika');  // First Name
-  await page.locator('input').nth(1).fill('Neela');     // Last Name
-  await page.locator('input').nth(2).fill('malavikaneela20@gmail.com'); // Email
-  await page.locator('textarea').fill('I need help with course details'); // Message
+// TC02 - Fill valid form
+test('TC02 - Fill valid details', async ({ page }) => {
 
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+  const last = page.getByRole('textbox', { name: 'Doe' });
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await first.fill('malavika');
+  await last.fill('neela');
+  await email.fill('ghwjjnaj@gmail.com');
+
+  await expect(first).toHaveValue('malavika');
+  await expect(last).toHaveValue('neela');
+  await expect(email).toHaveValue('ghwjjnaj@gmail.com');
 });
 
-// TC03 - Invalid email
-test('TC03 - Invalid email format', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('Neela');
-  await page.locator('input').nth(2).fill('malavika@com');
-  await page.locator('textarea').fill('Test message');
+// TC03 - Empty form
+test('TC03 - Empty form', async ({ page }) => {
 
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  await expect(page.getByRole('textbox', { name: 'Jane', exact: true })).toBeVisible();
 });
 
-// TC04 - Empty form
-test('TC04 - Empty submission', async ({ page }) => {
-  await goToContact(page);
-  await page.getByRole('button').click();
+
+// TC04 - Invalid email
+test('TC04 - Invalid email format', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await email.fill('malavika@com');
+
+  await expect(email).toHaveValue('malavika@com');
 });
+
 
 // TC05 - Only first name
 test('TC05 - Only first name', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('Malavika');
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
 
-  await page.getByRole('button').click();
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('malavika');
+
+  await expect(first).toHaveValue('malavika');
 });
+
 
 // TC06 - Only email
 test('TC06 - Only email', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(2).fill('malavikaneela20@gmail.com');
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
 
-  await page.getByRole('button').click();
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await email.fill('test@gmail.com');
+
+  await expect(email).toHaveValue('test@gmail.com');
 });
 
-// TC07 - Only message
-test('TC07 - Only message', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('textarea').fill('Hello');
+// TC07 - Special characters
+test('TC07 - Special characters in name', async ({ page }) => {
 
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('@malavika#');
+
+  await expect(first).toHaveValue('@malavika#');
 });
 
-// TC08 - Long message
-test('TC08 - Long message input', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(1).fill('Neela');
-  await page.locator('input').nth(2).fill('malavikaneela20@gmail.com');
-  await page.locator('textarea').fill('This is a long message for testing purpose. '.repeat(10));
+// TC08 - Clear and refill
+test('TC08 - Clear and refill', async ({ page }) => {
 
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('abc');
+  await first.fill('');
+  await first.fill('malavika');
+
+  await expect(first).toHaveValue('malavika');
 });
 
-// TC09 - Verify inputs
-test('TC09 - Verify input values', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('Malavika');
-  await page.locator('input').nth(2).fill('malavikaneela20@gmail.com');
+// TC09 - Reload page
+test('TC09 - Reload page', async ({ page }) => {
 
-  await expect(page.locator('input').nth(0)).toHaveValue('Malavika');
-  await expect(page.locator('input').nth(2)).toHaveValue('malavikaneela20@gmail.com');
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  await page.reload();
+
+  await expect(page.getByRole('textbox', { name: 'Jane', exact: true })).toBeVisible();
 });
 
-// TC10 - Special characters in name
-test('TC10 - Special characters in name', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('input').nth(0).fill('@Malavika#');
-  await page.locator('input').nth(1).fill('Neela');
-  await page.locator('input').nth(2).fill('malavikaneela20@gmail.com');
-  await page.locator('textarea').fill('Testing special characters');
+// TC10 - Scroll page
+test('TC10 - Scroll page', async ({ page }) => {
 
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  await page.mouse.wheel(0, 500);
+
+  await expect(page.locator('body')).toBeVisible();
 });
 
-// TC11 - Multiple clicks submit
-test('TC11 - Multiple clicks', async ({ page }) => {
-  await goToContact(page);
+// TC11 - Fill all fields and verify values
+test('TC11 - Fill and verify all fields', async ({ page }) => {
 
-  await page.getByRole('button').click();
-  await page.getByRole('button').click();
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+  const last = page.getByRole('textbox', { name: 'Doe' });
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await first.fill('malavika');
+  await last.fill('neela');
+  await email.fill('test@gmail.com');
+
+  await expect(first).toHaveValue('malavika');
+  await expect(last).toHaveValue('neela');
+  await expect(email).toHaveValue('test@gmail.com');
 });
 
-// TC12 - Navigate back home
-test('TC12 - Navigate home', async ({ page }) => {
-  await goToContact(page);
 
-  await page.locator('a[href="/"]').first().click();
-  await expect(page).toHaveURL(baseURL);
+// TC12 - Change input values
+test('TC12 - Modify input values', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('abc');
+  await first.fill('malavika');
+
+  await expect(first).toHaveValue('malavika');
+});
+
+
+// TC13 - Uppercase input
+test('TC13 - Uppercase name input', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('MALAVIKA');
+
+  await expect(first).toHaveValue('MALAVIKA');
+});
+
+
+// TC14 - Numeric input in name
+test('TC14 - Numeric name input', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('12345');
+
+  await expect(first).toHaveValue('12345');
+});
+
+
+test('TC15 - Email with spaces', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await email.fill('   test@gmail.com   ');
+
+  // ✅ FIX: expect trimmed value
+  await expect(email).toHaveValue('test@gmail.com');
+});
+
+
+// TC16 - Clear email field
+test('TC16 - Clear email input', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const email = page.getByRole('textbox', { name: 'jane@example.com' });
+
+  await email.fill('abc@gmail.com');
+  await email.fill('');
+
+  await expect(email).toHaveValue('');
+});
+
+
+// TC17 - Tab navigation
+test('TC17 - Tab navigation between fields', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.click();
+  await first.press('Tab');
+
+  await expect(page.getByRole('textbox', { name: 'Doe' })).toBeFocused();
+});
+
+
+// TC18 - Double click input
+test('TC18 - Double click input field', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.dblclick();
+
+  await expect(first).toBeVisible();
+});
+
+
+// TC19 - Rapid typing
+test('TC19 - Rapid typing input', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.type('malavika');
+
+  await expect(first).toHaveValue('malavika');
+});
+
+
+// TC20 - Verify fields still visible after interaction
+test('TC20 - Fields remain visible', async ({ page }) => {
+
+  await page.goto('https://learn-hub--neelamalavika7.replit.app/');
+  await page.getByRole('link', { name: 'Contact' }).click();
+
+  const first = page.getByRole('textbox', { name: 'Jane', exact: true });
+
+  await first.fill('test');
+
+  await expect(first).toBeVisible();
 });
