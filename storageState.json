@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "name": "GAESA",
+      "value": "CpwBMDA4YzE1ZmYwODdkMjgzN2M0OTJmZDFlNGJmMTM5ZDRjNDM0ODFiNWFlZjQwMTUwNmY0MmNhNWE0ZDJiNzdkMjNhMDZlOTY5NzA2N2YzNWQ5YThhZmY5YTM5NmQxNGVkM2UyM2Q0MDc3YzUzMWE5NmI0YTZmYjA0NmFiNjcwZDNjNzRiNTZjYzlhMzc2ZDg5MTRlOGFiNjRjZjY3EOuWmJvUMw",
+      "domain": "daily-wage-book-1--vinayksgowda44.replit.app",
+      "path": "/",
+      "expires": 1777541812.524731,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
