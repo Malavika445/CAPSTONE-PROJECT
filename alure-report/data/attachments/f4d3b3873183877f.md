@@ -1,0 +1,210 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "LearnHub Logo LearnHub" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "LearnHub Logo" [ref=e7]
+          - generic [ref=e8]: LearnHub
+        - navigation [ref=e9]:
+          - link "Find a Teacher" [ref=e10] [cursor=pointer]:
+            - /url: /teachers
+          - link "Subjects" [ref=e11] [cursor=pointer]:
+            - /url: /subjects
+          - link "Contact" [ref=e12] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e13]:
+          - link [ref=e14] [cursor=pointer]:
+            - /url: /teachers
+            - img [ref=e15]
+          - link [ref=e18] [cursor=pointer]:
+            - /url: /cart
+            - img [ref=e19]
+          - generic [ref=e23]:
+            - link "Log in" [ref=e24] [cursor=pointer]:
+              - /url: /login
+            - link "Sign up" [ref=e25] [cursor=pointer]:
+              - /url: /register
+    - main [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - img "Hero abstract background" [ref=e30]
+          - generic [ref=e33]:
+            - generic [ref=e34]: "#1 Platform for 1-on-1 Learning"
+            - heading "Master any subject with expert tutors" [level=1] [ref=e35]
+            - paragraph [ref=e36]: Achieve your learning goals with personalized private lessons from verified professionals worldwide.
+            - generic [ref=e37]:
+              - link "Find a Tutor" [ref=e38] [cursor=pointer]:
+                - /url: /teachers
+                - img [ref=e39]
+                - text: Find a Tutor
+              - link "Become a Student" [ref=e42] [cursor=pointer]:
+                - /url: /register
+          - img [ref=e44]
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - img [ref=e50]
+            - heading "50,000+" [level=3] [ref=e55]
+            - paragraph [ref=e56]: Happy Students
+          - generic [ref=e57]:
+            - img [ref=e58]
+            - heading "4.9/5" [level=3] [ref=e60]
+            - paragraph [ref=e61]: Average Rating
+          - generic [ref=e62]:
+            - img [ref=e63]
+            - heading "2,000+" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Expert Tutors
+          - generic [ref=e68]:
+            - img [ref=e69]
+            - heading "100%" [level=3] [ref=e71]
+            - paragraph [ref=e72]: Verified Profiles
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e76]:
+              - heading "Learn from the best" [level=2] [ref=e77]
+              - paragraph [ref=e78]: Our top-rated tutors are ready to help you achieve your goals.
+            - link "View all tutors" [ref=e79] [cursor=pointer]:
+              - /url: /teachers
+              - text: View all tutors
+              - generic [ref=e80]: →
+          - generic [ref=e81]:
+            - link "D Dr. Sarah Chen Mathematics 4.9 (148 reviews) PhD in Mathematics from MIT with 12 years of teaching experience. Specializes in making complex calculus and linear algebra concepts accessible to students of all levels. $75/hr Book Trial" [ref=e82] [cursor=pointer]:
+              - /url: /teachers/1
+              - generic [ref=e83]:
+                - generic [ref=e84]:
+                  - generic [ref=e86]: D
+                  - generic [ref=e87]:
+                    - heading "Dr. Sarah Chen" [level=3] [ref=e88]
+                    - paragraph [ref=e89]: Mathematics
+                    - generic [ref=e90]:
+                      - img [ref=e91]
+                      - text: "4.9"
+                      - generic [ref=e93]: (148 reviews)
+                - paragraph [ref=e94]: PhD in Mathematics from MIT with 12 years of teaching experience. Specializes in making complex calculus and linear algebra concepts accessible to students of all levels.
+                - generic [ref=e95]:
+                  - generic [ref=e96]:
+                    - img [ref=e97]
+                    - generic [ref=e100]: $75/hr
+                  - generic [ref=e101]: Book Trial
+            - link "P Prof. James Wilson Mathematics 4.7 (92 reviews) Former university professor with a passion for number theory and applied mathematics. Has helped hundreds of students ace their exams. $60/hr Book Trial" [ref=e102] [cursor=pointer]:
+              - /url: /teachers/2
+              - generic [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e106]: P
+                  - generic [ref=e107]:
+                    - heading "Prof. James Wilson" [level=3] [ref=e108]
+                    - paragraph [ref=e109]: Mathematics
+                    - generic [ref=e110]:
+                      - img [ref=e111]
+                      - text: "4.7"
+                      - generic [ref=e113]: (92 reviews)
+                - paragraph [ref=e114]: Former university professor with a passion for number theory and applied mathematics. Has helped hundreds of students ace their exams.
+                - generic [ref=e115]:
+                  - generic [ref=e116]:
+                    - img [ref=e117]
+                    - generic [ref=e120]: $60/hr
+                  - generic [ref=e121]: Book Trial
+            - link "D Dr. Emily Parker Physics 4.8 (124 reviews) Theoretical physicist with research experience at CERN. Makes quantum physics understandable with real-world examples and visual explanations. $80/hr Book Trial" [ref=e122] [cursor=pointer]:
+              - /url: /teachers/3
+              - generic [ref=e123]:
+                - generic [ref=e124]:
+                  - generic [ref=e126]: D
+                  - generic [ref=e127]:
+                    - heading "Dr. Emily Parker" [level=3] [ref=e128]
+                    - paragraph [ref=e129]: Physics
+                    - generic [ref=e130]:
+                      - img [ref=e131]
+                      - text: "4.8"
+                      - generic [ref=e133]: (124 reviews)
+                - paragraph [ref=e134]: Theoretical physicist with research experience at CERN. Makes quantum physics understandable with real-world examples and visual explanations.
+                - generic [ref=e135]:
+                  - generic [ref=e136]:
+                    - img [ref=e137]
+                    - generic [ref=e140]: $80/hr
+                  - generic [ref=e141]: Book Trial
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - heading "Explore top subjects" [level=2] [ref=e145]
+            - paragraph [ref=e146]: Find the perfect tutor for your specific learning needs.
+          - generic [ref=e147]:
+            - link "Mathematics" [ref=e148] [cursor=pointer]:
+              - /url: /teachers?subject_id=1
+              - generic [ref=e149]:
+                - img [ref=e151]
+                - heading "Mathematics" [level=3] [ref=e153]
+            - link "Physics" [ref=e154] [cursor=pointer]:
+              - /url: /teachers?subject_id=2
+              - generic [ref=e155]:
+                - img [ref=e157]
+                - heading "Physics" [level=3] [ref=e159]
+            - link "Chemistry" [ref=e160] [cursor=pointer]:
+              - /url: /teachers?subject_id=3
+              - generic [ref=e161]:
+                - img [ref=e163]
+                - heading "Chemistry" [level=3] [ref=e165]
+            - link "Biology" [ref=e166] [cursor=pointer]:
+              - /url: /teachers?subject_id=4
+              - generic [ref=e167]:
+                - img [ref=e169]
+                - heading "Biology" [level=3] [ref=e171]
+            - link "Computer Science" [ref=e172] [cursor=pointer]:
+              - /url: /teachers?subject_id=5
+              - generic [ref=e173]:
+                - img [ref=e175]
+                - heading "Computer Science" [level=3] [ref=e177]
+            - link "English" [ref=e178] [cursor=pointer]:
+              - /url: /teachers?subject_id=6
+              - generic [ref=e179]:
+                - img [ref=e181]
+                - heading "English" [level=3] [ref=e183]
+    - contentinfo [ref=e184]:
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - link "LearnHub" [ref=e187] [cursor=pointer]:
+            - /url: /
+            - img [ref=e188]
+            - generic [ref=e190]: LearnHub
+          - paragraph [ref=e191]: Empowering students worldwide to achieve their goals with expert tutors, flexible scheduling, and interactive learning.
+        - generic [ref=e192]:
+          - heading "Platform" [level=4] [ref=e193]
+          - list [ref=e194]:
+            - listitem [ref=e195]:
+              - link "Find Tutors" [ref=e196] [cursor=pointer]:
+                - /url: /teachers
+            - listitem [ref=e197]:
+              - link "Browse Subjects" [ref=e198] [cursor=pointer]:
+                - /url: /subjects
+            - listitem [ref=e199]:
+              - link "Become a Student" [ref=e200] [cursor=pointer]:
+                - /url: /register
+        - generic [ref=e201]:
+          - heading "Support" [level=4] [ref=e202]
+          - list [ref=e203]:
+            - listitem [ref=e204]:
+              - link "Help Center" [ref=e205] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e206]:
+              - link "Safety Center" [ref=e207] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e208]:
+              - link "Community Guidelines" [ref=e209] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e210]:
+          - heading "Legal" [level=4] [ref=e211]
+          - list [ref=e212]:
+            - listitem [ref=e213]:
+              - link "Terms of Service" [ref=e214] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e215]:
+              - link "Privacy Policy" [ref=e216] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e217]:
+              - link "Cookie Policy" [ref=e218] [cursor=pointer]:
+                - /url: "#"
+      - paragraph [ref=e220]: © 2026 LearnHub Inc. All rights reserved.
+  - region "Notifications (F8)":
+    - list
+```
